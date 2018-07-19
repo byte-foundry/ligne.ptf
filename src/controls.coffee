@@ -19,8 +19,8 @@ exports.controls = [
 		min: -5
 		max: 150
 		step: 1
-		init: 40
-		minAdvised: 20
+		init: 68
+		minAdvised: 50
 		maxAdvised: 80
 		disabled: false
 	,
@@ -74,9 +74,9 @@ exports.controls = [
 		min: 300
 		max: 900
 		step: 1
-		init: 600
-		minAdvised: 300
-		maxAdvised: 800
+		init: 520
+		minAdvised: 400
+		maxAdvised: 650
 		disabled: false
 		demo: true
 	,
@@ -94,11 +94,11 @@ exports.controls = [
 		name: 'ascender'
 		label: 'Ascender'
 		min: 50
-		max: 800
+		max: 400
 		step: 1
-		init: 100
-		minAdvised: 50
-		maxAdvised: 500
+		init: 225
+		minAdvised: 100
+		maxAdvised: 300
 		disabled: false
 		demo: false
 	,
@@ -127,7 +127,7 @@ exports.controls = [
 		name: 'width'
 		label: 'Width'
 		min: 0.4
-		max: 5
+		max: 3.2
 		step: 0.01
 		init: 1
 		minAdvised: 0.85
@@ -151,7 +151,7 @@ exports.controls = [
 		min: 0
 		max: 20
 		step: 1
-		init: 10
+		init: 12
 		minAdvised: 0
 		maxAdvised: 20
 		disabled: false
@@ -165,18 +165,18 @@ exports.controls = [
 		name: 'thickness'
 		label: 'Thickness'
 		min: 4
-		max: 180
+		max: 220
 		step: 1
-		init: 54
+		init: 142
 		minAdvised: 10
-		maxAdvised: 100
+		maxAdvised: 160
 		disabled: false
 		demo: true
 	,
 		name: '_contrast'
 		label: 'Contrast'
-		min: -1.3
-		max: -0.15
+		min: -1.5
+		max: -0.5
 		step: 0.01
 		init: -1
 		minAdvised: -1
@@ -233,11 +233,11 @@ exports.controls = [
 	,
 		name: 'curviness'
 		label: 'Curviness'
-		min: 0.1
+		min: 0.4
 		max: 1.4
 		step: 0.1
 		init: 0.6
-		minAdvised: 0.4
+		minAdvised: 0.5
 		maxAdvised: 0.8
 		disabled: false
 		demo: true
@@ -271,12 +271,12 @@ exports.controls = [
 	,
 		name: 'serifHeight'
 		label: 'Serif Height'
-		min: 0.001
-		max: 100
-		step: 1
-		init: 5
+		min: 0
+		max: 2
+		step: 0.01
+		init: 1
 		minAdvised: 0
-		maxAdvised: 80
+		maxAdvised: 1
 		disabled: false
 		demo: true
 	,

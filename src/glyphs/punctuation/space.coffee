@@ -3,15 +3,15 @@ exports.glyphs['space'] =
 	glyphName: 'space'
 	characterName: 'SPACE'
 	ot:
-		advanceWidth: 100 + 50 * width #TODO
+		advanceWidth: 200 + 50 * width
 	tags: [
 		'all',
 		'latin',
 		'punctuation'
 	]
 	parameters:
-		spacingLeft: 50 * spacing + 0
-		spacingRight: 50 * spacing + 0
+		spacingLeft: 50 * spacing
+		spacingRight: 50 * spacing
 	contours:
 		0:
 			skeleton: false

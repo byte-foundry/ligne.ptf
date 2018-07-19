@@ -1,5 +1,5 @@
 exports.fontinfo =
-	familyName: 'ligne'
+	familyName: 'Prototypo Ligne'
 	version: '0.1.0'
 	description: 'A parametric typeface'
 	tags: [

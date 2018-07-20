@@ -176,7 +176,7 @@ exports.controls = [
 		name: '_contrast'
 		label: 'Contrast'
 		min: -1.5
-		max: -0.5
+		max: -0.01
 		step: 0.01
 		init: -1
 		minAdvised: -1
@@ -198,12 +198,12 @@ exports.controls = [
 	,
 		name: 'aperture'
 		label: 'Aperture'
-		min: 0.3
-		max: 2
+		min: 0.5
+		max: 1
 		step: 0.01
 		init: 1
-		minAdvised: 0.9
-		maxAdvised: 1.2
+		minAdvised: 0.75
+		maxAdvised: 1
 		disabled: false
 		demo: false
 	,

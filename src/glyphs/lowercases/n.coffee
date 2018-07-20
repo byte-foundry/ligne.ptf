@@ -53,9 +53,9 @@ exports.glyphs['n'] =
 				0:
 					x: contours[0].nodes[1].expandedTo[1].x
 					y: Math.max(
-						xHeight - 238 -
-						35 * width + 35, # points go down when width increase
-						0 # points should never be lower than the baseline
+						( xHeight - 238 -
+						35 * width + 35 ), # points go down when width increase
+					 	0 # points should never be lower than the baseline
 					)
 					dirOut: Math.PI / 2
 					tensionOut: 1.2

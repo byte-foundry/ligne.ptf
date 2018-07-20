@@ -51,6 +51,7 @@ exports.glyphs['r'] =
 					x: contours[0].nodes[1].expandedTo[1].x
 					y: Math.max(
 						xHeight - 285 -
+						( 40 / 142 ) * thickness + 40 -
 						35 * width + 35, # points go down when width increase
 						0 # points should never be lower than the baseline
 					)
@@ -63,7 +64,7 @@ exports.glyphs['r'] =
 				1:
 					x: Math.max(
 						contours[0].nodes[0].expandedTo[0].x + ( 77 + ( 40 / 142 ) * thickness ) + 200 * width,
-						contours[0].nodes[0].expandedTo[1].x + thickness / 2
+						contours[0].nodes[0].expandedTo[1].x + thickness * 0.75
 					)
 					y: xHeight + overshoot
 					typeIn: 'smooth'

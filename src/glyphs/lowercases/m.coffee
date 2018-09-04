@@ -66,14 +66,28 @@ exports.glyphs['m'] =
 					dirOut: 0
 					typeIn: 'smooth'
 					expand:
-						width: ( 132 / 141 ) * thickness * contrast
-						angle: Math.PI / 2 - Math.asin(
-							Math.min( 0.99, Math.max( -0.99, # we don't want asin(1)
-								(
-									( contours[1].nodes[1].x - contours[1].nodes[0].x ) -
-									( contours[1].nodes[2].expandedTo[0].x - contours[1].nodes[0].x ) / 2
-								) / contours[1].nodes[1].expand.width
-						))) # the bottom point of this node is always in the middle of the curve
+					  width: Math.max(
+					    ( 132 / 141 ) * thickness * contrast,
+					    thickness / 2
+					  )
+					  angle: Math.PI / 2 - Math.max(
+					  	Utils.lineAngle( # we don't want the contrast makes go over the top curve
+					  		{ x: contours[1].nodes[0].x - contours[1].nodes[0].expand.width, y: contours[1].nodes[0].y },
+					  		{ x: contours[1].nodes[1].x, y: contours[1].nodes[1].y }
+					    ), # avoid very thin contrast
+					    Math.asin(
+					      Math.min( 0.99, Math.max( - 0.99, # we don't want asin(1)
+				          (
+			              ( contours[1].nodes[1].x - contours[1].nodes[0].x ) -
+			              ( contours[1].nodes[2].expandedTo[0].x - contours[1].nodes[0].x ) / 2
+				          ) / contours[1].nodes[1].expand.width
+					    ))) # the bottom point of this node is always in the middle of the curve
+					  )
+						#
+						# cette ligne devrait marcher, mais ce n'est pas le cas:
+						#
+						# angle: Math.PI / 2 - Utils.lineAngle( { x: contours[1].nodes[0].x - contours[1].nodes[0].expand.width, y: contours[1].nodes[0].y }, { x: contours[1].nodes[1].x, y: contours[1].nodes[1].y } )
+					  #
 						distr: 1
 				2:
 					x: contours[1].nodes[3].x
@@ -121,14 +135,23 @@ exports.glyphs['m'] =
 					dirOut: 0
 					typeIn: 'smooth'
 					expand:
-						width: ( 132 / 141 ) * thickness * contrast
-						angle: Math.PI / 2 - Math.asin(
-							Math.min( 0.99, Math.max( -0.99, # we don't want asin(1)
-								(
-									( contours[2].nodes[1].x - contours[2].nodes[0].x ) -
-									( contours[2].nodes[2].expandedTo[0].x - contours[2].nodes[0].x ) / 2
-								) / contours[2].nodes[1].expand.width
-						))) # the bottom point of this node is always in the middle of the curve
+						width: Math.max(
+							( 132 / 141 ) * thickness * contrast,
+							thickness / 2
+						)
+						angle: Math.PI / 2 - Math.min(
+						  Utils.lineAngle( # we don't want the contrast makes go over the top curve
+						    { x: contours[2].nodes[0].x - contours[2].nodes[0].expand.width, y: contours[2].nodes[0].y },
+						    { x: contours[2].nodes[1].x, y: contours[2].nodes[1].y }
+						  ) - ( 5 / 180 ) * Math.PI, # avoid very thin contrast
+						  Math.asin(
+						    Math.min( 0.99, Math.max( - 0.99, # we don't want asin(1)
+						        (
+						            ( contours[2].nodes[1].x - contours[2].nodes[0].x ) -
+						            ( contours[2].nodes[2].expandedTo[0].x - contours[2].nodes[0].x ) / 2
+						        ) / contours[2].nodes[1].expand.width
+						  ))) # the bottom point of this node is always in the middle of the curve
+						)
 						distr: 1
 				2:
 					x: contours[2].nodes[3].x

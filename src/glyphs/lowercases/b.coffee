@@ -3,7 +3,7 @@ exports.glyphs['b'] =
 	glyphName: 'b'
 	characterName: 'LATIN SMALL LETTER B'
 	ot:
-		advanceWidth: contours[1].nodes[2].expandedTo[0].x + spacingRight
+		advanceWidth: contours[1].nodes[2].expandedTo[1].x + spacingRight
 	transforms: Array(
 		['skewX',( slant ) / 180 * Math.PI]
 	)
@@ -49,7 +49,7 @@ exports.glyphs['b'] =
 					y: Math.max(
 						Math.min(
 							contours[1].nodes[1].y - ( contours[1].nodes[1].y + contours[1].nodes[3].y ) / 2 * aperture * apertureTop + 5, # (+5) allows to select both extremities of this contour
-							xHeight - contours[1].nodes[1].expand.width # avoid the extremity to be above the next node
+							xHeight - contours[1].nodes[1].expand.width - 20 # avoid the extremity to be above the next node
 						),
 						xHeight / 2 # extremities should not cross
 					)
@@ -61,26 +61,47 @@ exports.glyphs['b'] =
 							( 45 / 142 ) * thickness / aperture * apertureTop
 						) * contrast * contrastExtremity
 						angle: Math.min(
-							0 + Math.PI / 2 * aperture * apertureTop - Math.PI / 2,
-							0
+							Math.PI,
+							Math.max(
+								Math.PI + Math.PI / 2 * aperture * apertureTop - Math.PI / 2,
+								Utils.lineAngle(
+									{
+										x: contours[1].nodes[0].x,
+										y: contours[1].nodes[0].y
+									},
+									{
+										x: contours[1].nodes[0].x + ( contours[1].nodes[2].expandedTo[1].x - contours[1].nodes[0].x ) * ( 220 / 461 ) + 30 * aperture * apertureTop - 30,
+										y: xHeight + overshoot # The line above is an approximation of contours[1].nodes[1].x but otherwise there is a circular dependency
+									}
+								) + Math.PI / 2 + ( 15 / 180 ) * Math.PI
+							)
 						)
-						distr: 1
+						distr: 0
 				1:
-					x: contours[1].nodes[0].expandedTo[0].x + ( contours[1].nodes[2].expandedTo[0].x - contours[1].nodes[0].expandedTo[0].x ) * ( 220 / 461 ) +
+					x: contours[1].nodes[0].expandedTo[1].x + ( contours[1].nodes[2].expandedTo[1].x - contours[1].nodes[0].expandedTo[1].x ) * ( 220 / 461 ) +
 						30 * aperture * apertureTop - 30 # when the aperture is small, we have to reequilibrate the curve
 					y: xHeight + overshoot
 					dirOut: 0
 					typeIn: 'smooth'
 					expand:
-						width: ( 122 / 142 ) * thickness * contrast
-						angle: Math.PI / 2 + Math.PI - Math.asin(
-							Math.min( 0.99, Math.max( -0.99, # we don't want asin(1)
-								(
-									( contours[1].nodes[1].x - contours[1].nodes[0].expandedTo[1].x ) -
-									( contours[1].nodes[2].expandedTo[1].x - contours[1].nodes[0].expandedTo[1].x ) / 2
-								) / contours[1].nodes[1].expand.width
-						))) # the bottom point of this node is always in the middle of the curve
-						distr: 0
+					  width: Math.max(
+					    ( 122 / 142 ) * thickness * contrast,
+					    thickness / 2 # in high contrast, it's not the thickness which should be reduced, but the angle.
+					  )
+					  angle: Math.max(
+					    Math.PI / 2 - Math.asin(
+					      Math.min( 0.99, Math.max( - 0.99, # we don't want asin(1)
+					        (
+					          ( contours[1].nodes[1].x - contours[1].nodes[0].x ) -
+					          ( contours[1].nodes[2].expandedTo[0].x - contours[1].nodes[0].x ) / 2
+					        ) / contours[1].nodes[1].expand.width
+					    ))),
+					    Utils.lineAngle(
+					      { x: contours[1].nodes[0].x - contours[1].nodes[0].expand.width, y: contours[1].nodes[0].y },
+					      { x: contours[1].nodes[1].x, y: contours[1].nodes[1].y }
+					    ) - ( 15 / 180 ) * Math.PI # we want to go a little bit over the angle defined above
+					  )
+					  distr: 1
 				2:
 					x: Math.max(
 						contours[0].nodes[0].expandedTo[0].x + ( 309 + ( 40 / 142 ) * thickness ) + 200 * width - (35),
@@ -91,32 +112,41 @@ exports.glyphs['b'] =
 					typeIn: 'smooth'
 					expand:
 						width: ( 140 / 142 ) * thickness
-						angle: Math.PI
-						distr: 0.25
+						angle: 0
+						distr: 0.75
 				3:
-					x: contours[1].nodes[4].expandedTo[0].x + ( contours[1].nodes[2].expandedTo[0].x - contours[1].nodes[4].expandedTo[0].x ) * ( 220 / 461 ) +
+					x: contours[1].nodes[4].expandedTo[1].x + ( contours[1].nodes[2].expandedTo[1].x - contours[1].nodes[4].expandedTo[1].x ) * ( 220 / 461 ) +
 						30 * aperture * apertureBottom - 30 # when the aperture is small, we have to reequilibrate the curve
 					y: - overshoot
 					dirOut: Math.PI
 					typeIn: 'smooth'
 					expand:
-						width: ( 122 / 142 ) * thickness * contrast
-						angle: - Math.PI / 2 + Math.PI + Math.asin(
-							Math.min( 0.99, Math.max( -0.99, # we don't want asin(1)
-								(
-									( contours[1].nodes[3].x - contours[1].nodes[4].expandedTo[1].x ) -
-									( contours[1].nodes[2].expandedTo[1].x - contours[1].nodes[4].expandedTo[1].x ) / 2
-								) / contours[1].nodes[3].expand.width
-						))) # the bottom point of this node is always in the middle of the curve
-						distr: 0
+						width: Math.max(
+					    ( 122 / 142 ) * thickness * contrast,
+					    thickness / 2 # in high contrast, it's not the thickness which should be reduced, but the angle.
+					  )
+						angle: Math.min(
+							Math.PI - Math.PI - Math.acos(
+								Math.min( 0.99, Math.max( -0.99, # we don't want asin(1)
+									(
+										( contours[1].nodes[3].x - contours[1].nodes[4].x ) -
+										( contours[1].nodes[2].expandedTo[0].x - contours[1].nodes[4].expandedTo[0].x ) / 2
+									) / contours[1].nodes[3].expand.width
+							))), # the bottom point of this node is always in the middle of the curve
+							Utils.lineAngle(
+								{ x: contours[1].nodes[4].x - contours[1].nodes[4].expand.width, y: contours[1].nodes[4].y },
+								{ x: contours[1].nodes[3].x, y: contours[1].nodes[3].y }
+							) + ( 15 / 180 ) * Math.PI # we want to go a little bit over the angle defined above
+						)
+						distr: 1
 				4:
 					x: contours[1].nodes[0].x
 					y: Math.min(
 						Math.max(
 							( contours[1].nodes[1].y + contours[1].nodes[3].y ) / 2 * aperture * apertureBottom - 5, # (-5) allows to select both extremities of this contour
-							contours[1].nodes[3].y + contours[1].nodes[3].expand.width # avoid the extremity to be above the next node
+							contours[1].nodes[3].y + contours[1].nodes[3].expand.width + 20 # avoid the extremity to be above the next node
 						),
-						xHeight / 2 # extremities should not cross
+						xHeight / 2 # extremities should never cross themselves
 					)
 					dirIn: contours[1].nodes[4].expand.angle + Math.PI / 2
 					expand:
@@ -124,11 +154,17 @@ exports.glyphs['b'] =
 							( 45 / 142 ) * thickness,
 							( 45 / 142 ) * thickness / aperture * apertureBottom
 						) * contrast * contrastExtremity
-						angle: Math.max(
-							0 - Math.PI / 2 * aperture * apertureBottom + Math.PI / 2,
-							0
+						angle: Math.min(
+							Math.max(
+								Math.PI - Math.PI / 2 * aperture * apertureBottom + Math.PI / 2,
+								Math.PI
+							),
+							Utils.lineAngle(
+							  { x: contours[1].nodes[1].x, y: contours[1].nodes[3].y }, # It should be contours[1].nodes[3].x but we use this turnaround to avoid circular dependencies
+							  { x: contours[1].nodes[4].x, y: contours[1].nodes[4].y }
+							) + Math.PI / 2 - ( 15 / 180 ) * Math.PI
 						)
-						distr: 1
+						distr: 0
 	components:
 		0:
 			base: ['serif-vertical', 'none']

@@ -68,27 +68,22 @@ exports.glyphs['m'] =
 					expand:
 					  width: Math.max(
 					    ( 132 / 141 ) * thickness * contrast,
-					    thickness / 2
+					    thickness / 2 # in high contrast, it's not the thickness which should be reduced, but the angle.
 					  )
-					  angle: Math.PI / 2 - Math.max(
-					  	Utils.lineAngle( # we don't want the contrast makes go over the top curve
-					  		{ x: contours[1].nodes[0].x - contours[1].nodes[0].expand.width, y: contours[1].nodes[0].y },
-					  		{ x: contours[1].nodes[1].x, y: contours[1].nodes[1].y }
-					    ), # avoid very thin contrast
-					    Math.asin(
+					  angle: Math.max(
+					    Math.PI / 2 - Math.asin(
 					      Math.min( 0.99, Math.max( - 0.99, # we don't want asin(1)
-				          (
-			              ( contours[1].nodes[1].x - contours[1].nodes[0].x ) -
-			              ( contours[1].nodes[2].expandedTo[0].x - contours[1].nodes[0].x ) / 2
-				          ) / contours[1].nodes[1].expand.width
-					    ))) # the bottom point of this node is always in the middle of the curve
+					        (
+					          ( contours[1].nodes[1].x - contours[1].nodes[0].x ) -
+					          ( contours[1].nodes[2].expandedTo[0].x - contours[1].nodes[0].x ) / 2
+					        ) / contours[1].nodes[1].expand.width
+					    ))),
+					    Utils.lineAngle(
+					      { x: contours[1].nodes[0].x - contours[1].nodes[0].expand.width, y: contours[1].nodes[0].y },
+					      { x: contours[1].nodes[1].x, y: contours[1].nodes[1].y }
+					    ) - ( 15 / 180 ) * Math.PI # we want to go a little bit over the angle defined above
 					  )
-						#
-						# cette ligne devrait marcher, mais ce n'est pas le cas:
-						#
-						# angle: Math.PI / 2 - Utils.lineAngle( { x: contours[1].nodes[0].x - contours[1].nodes[0].expand.width, y: contours[1].nodes[0].y }, { x: contours[1].nodes[1].x, y: contours[1].nodes[1].y } )
-					  #
-						distr: 1
+					  distr: 1
 				2:
 					x: contours[1].nodes[3].x
 					y: Math.max( xHeight - 197 - (8/141) * thickness - 35 * width + 35, 0 )
@@ -135,24 +130,24 @@ exports.glyphs['m'] =
 					dirOut: 0
 					typeIn: 'smooth'
 					expand:
-						width: Math.max(
-							( 132 / 141 ) * thickness * contrast,
-							thickness / 2
-						)
-						angle: Math.PI / 2 - Math.min(
-						  Utils.lineAngle( # we don't want the contrast makes go over the top curve
-						    { x: contours[2].nodes[0].x - contours[2].nodes[0].expand.width, y: contours[2].nodes[0].y },
-						    { x: contours[2].nodes[1].x, y: contours[2].nodes[1].y }
-						  ) - ( 5 / 180 ) * Math.PI, # avoid very thin contrast
-						  Math.asin(
-						    Math.min( 0.99, Math.max( - 0.99, # we don't want asin(1)
-						        (
-						            ( contours[2].nodes[1].x - contours[2].nodes[0].x ) -
-						            ( contours[2].nodes[2].expandedTo[0].x - contours[2].nodes[0].x ) / 2
-						        ) / contours[2].nodes[1].expand.width
-						  ))) # the bottom point of this node is always in the middle of the curve
-						)
-						distr: 1
+					  width: Math.max(
+					    ( 132 / 141 ) * thickness * contrast,
+					    thickness / 2 # in high contrast, it's not the thickness which should be reduced, but the angle.
+					  )
+					  angle: Math.max(
+					    Math.PI / 2 - Math.asin(
+					      Math.min( 0.99, Math.max( - 0.99, # we don't want asin(1)
+					        (
+					          ( contours[2].nodes[1].x - contours[2].nodes[0].x ) -
+					          ( contours[2].nodes[2].expandedTo[0].x - contours[2].nodes[0].x ) / 2
+					        ) / contours[2].nodes[1].expand.width
+					    ))),
+					    Utils.lineAngle(
+					      { x: contours[2].nodes[0].x - contours[2].nodes[0].expand.width, y: contours[2].nodes[0].y },
+					      { x: contours[2].nodes[1].x, y: contours[2].nodes[1].y }
+					    ) - ( 15 / 180 ) * Math.PI # we want to go a little bit over the angle defined above
+					  )
+					  distr: 1
 				2:
 					x: contours[2].nodes[3].x
 					y: Math.max( xHeight - 197 - (8/141) * thickness - 35 * width + 35, 0 )

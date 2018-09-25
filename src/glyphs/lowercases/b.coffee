@@ -49,30 +49,23 @@ exports.glyphs['b'] =
 					y: Math.max(
 						Math.min(
 							contours[1].nodes[1].y - ( contours[1].nodes[1].y + contours[1].nodes[3].y ) / 2 * aperture * apertureTop + 5, # (+5) allows to select both extremities of this contour
-							xHeight - contours[1].nodes[1].expand.width - 20 # avoid the extremity to be above the next node
+							contours[1].nodes[1].y - contours[1].nodes[1].expand.width - 20 # avoid the extremity to be above the next node
 						),
 						xHeight / 2 # extremities should not cross
 					)
 					dirOut: contours[1].nodes[0].expand.angle - Math.PI / 2
-					typeIn: 'smooth'
 					expand:
 						width: Math.max(
-							( 45 / 142 ) * thickness,
-							( 45 / 142 ) * thickness / aperture * apertureTop
+							( 45 / defaultThickness ) * thickness,
+							( 45 / defaultThickness ) * thickness / aperture * apertureTop
 						) * contrast * contrastExtremity
 						angle: Math.min(
 							Math.PI,
 							Math.max(
 								Math.PI + Math.PI / 2 * aperture * apertureTop - Math.PI / 2,
 								Utils.lineAngle(
-									{
-										x: contours[1].nodes[0].x,
-										y: contours[1].nodes[0].y
-									},
-									{
-										x: contours[1].nodes[0].x + ( contours[1].nodes[2].expandedTo[1].x - contours[1].nodes[0].x ) * ( 220 / 461 ) + 30 * aperture * apertureTop - 30,
-										y: xHeight + overshoot # The line above is an approximation of contours[1].nodes[1].x but otherwise there is a circular dependency
-									}
+									{ x: contours[1].nodes[0].x, y: contours[1].nodes[0].y },
+									{ x: contours[1].nodes[0].x + ( contours[1].nodes[2].expandedTo[1].x - contours[1].nodes[0].x ) * ( 220 / 461 ) + 30 * aperture * apertureTop - 30, y: xHeight + overshoot } # The line above is an approximation of contours[1].nodes[1].x but otherwise there is a circular dependency
 								) + Math.PI / 2 + ( 15 / 180 ) * Math.PI
 							)
 						)
@@ -85,7 +78,7 @@ exports.glyphs['b'] =
 					typeIn: 'smooth'
 					expand:
 					  width: Math.max(
-					    ( 122 / 142 ) * thickness * contrast,
+					    ( 122 / defaultThickness ) * thickness * contrast,
 					    thickness / 2 # in high contrast, it's not the thickness which should be reduced, but the angle.
 					  )
 					  angle: Math.max(
@@ -104,14 +97,14 @@ exports.glyphs['b'] =
 					  distr: 1
 				2:
 					x: Math.max(
-						contours[0].nodes[0].expandedTo[0].x + ( 309 + ( 40 / 142 ) * thickness ) + 200 * width - (35),
-						contours[0].nodes[0].expandedTo[1].x + ( contours[1].nodes[2].expand.width * ( 1 - contours[1].nodes[2].expand.distr ) ) + minSpace
+						contours[0].nodes[0].expandedTo[0].x + ( 309 + ( 40 / defaultThickness ) * thickness ) + 200 * width - (35),
+						contours[0].nodes[0].expandedTo[1].x + ( contours[1].nodes[2].expand.width * contours[1].nodes[2].expand.distr ) + minSpace
 					)
 					y: ( contours[1].nodes[1].y + contours[1].nodes[3].y ) / 2
 					dirOut: - Math.PI / 2
 					typeIn: 'smooth'
 					expand:
-						width: ( 140 / 142 ) * thickness
+						width: ( 140 / defaultThickness ) * thickness
 						angle: 0
 						distr: 0.75
 				3:
@@ -122,7 +115,7 @@ exports.glyphs['b'] =
 					typeIn: 'smooth'
 					expand:
 						width: Math.max(
-					    ( 122 / 142 ) * thickness * contrast,
+					    ( 122 / defaultThickness ) * thickness * contrast,
 					    thickness / 2 # in high contrast, it's not the thickness which should be reduced, but the angle.
 					  )
 						angle: Math.min(
@@ -151,8 +144,8 @@ exports.glyphs['b'] =
 					dirIn: contours[1].nodes[4].expand.angle + Math.PI / 2
 					expand:
 						width: Math.max(
-							( 45 / 142 ) * thickness,
-							( 45 / 142 ) * thickness / aperture * apertureBottom
+							( 45 / defaultThickness ) * thickness,
+							( 45 / defaultThickness ) * thickness / aperture * apertureBottom
 						) * contrast * contrastExtremity
 						angle: Math.min(
 							Math.max(
@@ -185,7 +178,22 @@ exports.glyphs['b'] =
 					noneAnchor: contours[0].nodes[1].expandedTo[0]
 					opposite: contours[0].nodes[1].expandedTo[1]
 					reversed: true
-			transformOrigin: contours[0].nodes[1]
+			transformOrigin: contours[0].nodes[1].expandedTo[0]
 			transforms: Array(
+				[ 'scaleY', -1 ]
+			)
+		2:
+			base: ['none', 'serif-vertical']
+			id: 'topright'
+			class: 'upperLeftInsideStump'
+			parentAnchors:
+				0:
+					base: contours[0].nodes[1].expandedTo[1]
+					noneAnchor: contours[0].nodes[1].expandedTo[1]
+					opposite: contours[0].nodes[1].expandedTo[0]
+					reversed: true
+			transformOrigin: contours[0].nodes[1].expandedTo[1]
+			transforms: Array(
+				[ 'scaleX', -1 ],
 				[ 'scaleY', -1 ]
 			)

@@ -43,7 +43,7 @@ exports.glyphs['l'] =
 						distr: 0.5
 				1:
 					x: contours[0].nodes[0].x
-					y: xHeight
+					y: ascenderHeight
 					typeIn: 'line'
 					expand:
 						width: thickness

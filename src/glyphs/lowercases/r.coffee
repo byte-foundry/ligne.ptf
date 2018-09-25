@@ -50,27 +50,49 @@ exports.glyphs['r'] =
 				0:
 					x: contours[0].nodes[1].expandedTo[1].x
 					y: Math.max(
-						xHeight - 285 -
-						( 40 / 142 ) * thickness + 40 -
-						35 * width + 35, # points go down when width increase
+						Math.min(
+							xHeight - 285 -
+							( 40 / defaultThickness ) * thickness + 40 -
+							35 * width + 35 -  # points go down when width increase
+							xHeight / 2  * aperture * apertureTop + xHeight / 2, # get the same coefficient than in the letter b
+							xHeight - contours[1].nodes[1].expand.width - 40, # avoid the extremity to be above the next node
+						),
 						0 # points should never be lower than the baseline
 					)
-					dirOut: Math.PI / 2
+					dirOut: contours[1].nodes[0].expand.angle + ( 20 / 180 ) * Math.PI - Math.PI / 2
 					tensionOut: 1.2
 					expand:
-						width: ( 18 / 141 ) * thickness * contrast * contrastExtremity
-						angle: - 20 / 180 * Math.PI
+						width: Math.max(
+							( 18 / defaultThickness ) * thickness,
+							( 18 / defaultThickness ) * thickness / aperture * apertureTop
+						) * contrast * contrastExtremity
+						angle: Math.min(
+							( - 20 / 180 ) * Math.PI,
+							Math.max(
+								( - 20 / 180 ) * Math.PI + Math.PI / 2 * aperture * apertureTop - Math.PI / 2,
+								Utils.lineAngle(
+									{
+										x: contours[1].nodes[0].x,
+										y: contours[1].nodes[0].y
+									},
+									{
+										x: contours[1].nodes[0].x + ( contours[1].nodes[2].expandedTo[1].x - contours[1].nodes[0].x ) * ( 220 / 461 ) + 30 * aperture * apertureTop - 30,
+										y: xHeight + overshoot # The line above is an approximation of contours[1].nodes[1].x but otherwise there is a circular dependency
+									}
+								) + Math.PI / 2 + ( 15 / 180 ) * Math.PI
+							)
+						)
 						distr: 1
 				1:
 					x: Math.max(
-						contours[0].nodes[0].expandedTo[0].x + ( 77 + ( 40 / 142 ) * thickness ) + 200 * width,
+						contours[0].nodes[0].expandedTo[0].x + ( 77 + ( 40 / defaultThickness ) * thickness ) + 200 * width,
 						contours[0].nodes[0].expandedTo[1].x + thickness * 0.75
 					)
 					y: xHeight + overshoot
 					typeIn: 'smooth'
 					typeOut: 'line'
 					expand:
-						width: ( 152 / 141 ) * thickness * contrast
+						width: ( ( 100 + 52  * contrast ) / defaultThickness ) * thickness
 						angle: ( 260 / 180 ) * Math.PI
 						distr: 0
 				2:

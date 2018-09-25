@@ -19,17 +19,17 @@ exports.glyphs['dot'] =
 					dirOut: Math.PI
 					type: 'smooth'
 				1:
-					x: contours[0].nodes[0].x - ( 173 / 142 ) * thickness / 2
-					y: anchors[0].y + ( 173 / 142 ) * thickness / 2
+					x: contours[0].nodes[0].x - ( 173 / defaultThickness ) * thickness / 2
+					y: anchors[0].y + ( 173 / defaultThickness ) * thickness / 2
 					dirOut: Math.PI / 2
 					type: 'smooth'
 				2:
 					x: contours[0].nodes[0].x
-					y: contours[0].nodes[0].y + ( 173 / 142 ) * thickness
+					y: contours[0].nodes[0].y + ( 173 / defaultThickness ) * thickness
 					dirOut: 0
 					type: 'smooth'
 				3:
-					x: contours[0].nodes[0].x + ( 173 / 142 ) * thickness / 2
+					x: contours[0].nodes[0].x + ( 173 / defaultThickness ) * thickness / 2
 					y: contours[0].nodes[1].y
 					dirOut: - Math.PI / 2
 					type: 'smooth'

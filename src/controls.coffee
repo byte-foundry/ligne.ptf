@@ -104,11 +104,11 @@ exports.controls = [
 	,
 		name: 'descender'
 		label: 'Descender'
-		min: -850
+		min: -350
 		max: -50
 		step: 1
-		init: -90
-		minAdvised: -350
+		init: -208
+		minAdvised: -300
 		maxAdvised: -70
 		disabled: false
 		demo: false

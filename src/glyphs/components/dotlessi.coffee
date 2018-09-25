@@ -54,7 +54,7 @@ exports.glyphs['dotlessi'] =
 		1:
 			base: ['serif-vertical', 'none']
 			id: 'bottomright'
-			class: 'lowerLeftInsideStump'
+			class: 'lowerRightStump'
 			parentAnchors:
 				0:
 					base: contours[0].nodes[0].expandedTo[1]
@@ -75,7 +75,22 @@ exports.glyphs['dotlessi'] =
 					noneAnchor: contours[0].nodes[1].expandedTo[0]
 					opposite: contours[0].nodes[1].expandedTo[1]
 					reversed: true
-			transformOrigin: contours[0].nodes[1]
+			transformOrigin: contours[0].nodes[1].expandedTo[0]
 			transforms: Array(
+				[ 'scaleY', -1 ]
+			)
+		3:
+			base: ['none', 'serif-vertical']
+			id: 'topright'
+			class: 'upperRightStump'
+			parentAnchors:
+				0:
+					base: contours[0].nodes[1].expandedTo[1]
+					noneAnchor: contours[0].nodes[1].expandedTo[1]
+					opposite: contours[0].nodes[1].expandedTo[0]
+					reversed: true
+			transformOrigin: contours[0].nodes[1].expandedTo[1]
+			transforms: Array(
+				[ 'scaleX', -1 ],
 				[ 'scaleY', -1 ]
 			)

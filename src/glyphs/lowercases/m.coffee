@@ -54,7 +54,7 @@ exports.glyphs['m'] =
 					dirOut: Math.PI / 2
 					tensionOut: 1.2
 					expand:
-						width: ( 28 / 141 ) * thickness * contrast * contrastExtremity
+						width: ( 28 / defaultThickness ) * thickness * contrast * contrastExtremity
 						angle: Math.PI
 						distr: 0
 				1:
@@ -67,7 +67,7 @@ exports.glyphs['m'] =
 					typeIn: 'smooth'
 					expand:
 					  width: Math.max(
-					    ( 132 / 141 ) * thickness * contrast,
+					    ( 132 / defaultThickness ) * thickness * contrast,
 					    thickness / 2 # in high contrast, it's not the thickness which should be reduced, but the angle.
 					  )
 					  angle: Math.max(
@@ -90,12 +90,12 @@ exports.glyphs['m'] =
 					dirIn: Math.PI / 2
 					typeOut: 'line'
 					expand:
-						width: ( 145 / 141 ) * thickness
+						width: ( 145 / defaultThickness ) * thickness
 						angle: Math.PI + ( 193 / 180 ) * Math.PI
 						distr: 0.75
 				3:
 					x: Math.max(
-						contours[0].nodes[0].expandedTo[0].x + ( 222 + ( 40 / 142 ) * thickness ) + 200 * width - (40), # thickness is related to width
+						contours[0].nodes[0].expandedTo[0].x + ( 222 + ( 40 / defaultThickness ) * thickness ) + 200 * width - (40), # thickness is related to width
 						contours[0].nodes[0].expandedTo[1].x + ( thickness * contours[1].nodes[3].expand.distr ) + minSpace # we set a minimum space between the stems
 					)
 					y: 0
@@ -118,7 +118,7 @@ exports.glyphs['m'] =
 					dirOut: Math.PI / 2
 					tensionOut: 1.2
 					expand:
-						width: ( 34 / 141 ) * thickness * contrast * contrastExtremity
+						width: ( 34 / defaultThickness ) * thickness * contrast * contrastExtremity
 						angle: - ( 200 / 180 ) * Math.PI
 						distr: 0
 				1:
@@ -131,7 +131,7 @@ exports.glyphs['m'] =
 					typeIn: 'smooth'
 					expand:
 					  width: Math.max(
-					    ( 132 / 141 ) * thickness * contrast,
+					    ( 132 / defaultThickness ) * thickness * contrast,
 					    thickness / 2 # in high contrast, it's not the thickness which should be reduced, but the angle.
 					  )
 					  angle: Math.max(
@@ -154,12 +154,12 @@ exports.glyphs['m'] =
 					dirIn: Math.PI / 2
 					typeOut: 'line'
 					expand:
-						width: ( 145 / 141 ) * thickness
+						width: ( 145 / defaultThickness ) * thickness
 						angle: Math.PI + ( 193 / 180 ) * Math.PI
 						distr: 0.75
 				3:
 					x: Math.max(
-						contours[1].nodes[3].expandedTo[0].x + ( 222 + ( 40 / 142 ) * thickness ) + 200 * width - (40), # thickness is related to width
+						contours[1].nodes[3].expandedTo[0].x + ( 222 + ( 40 / defaultThickness ) * thickness ) + 200 * width - (40), # thickness is related to width
 						contours[1].nodes[3].expandedTo[1].x + ( thickness * contours[2].nodes[3].expand.distr ) + minSpace # we set a minimum space between the stems
 					)
 					y: 0

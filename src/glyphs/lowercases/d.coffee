@@ -153,3 +153,47 @@ exports.glyphs['d'] =
 						width: ( 142 / defaultThickness ) * thickness
 						angle: Math.PI
 						distr: 0.25
+	components:
+		0:
+			base: ['serif-vertical', 'none']
+			id: 'bottomright'
+			class: 'lowerRightStump'
+			parentAnchors:
+				0:
+					base: contours[1].nodes[0].expandedTo[0]
+					noneAnchor: contours[1].nodes[0].expandedTo[0]
+					opposite: contours[1].nodes[0].expandedTo[1]
+			transformOrigin: contours[1].nodes[0].expandedTo[0]
+			transforms: Array(
+				[ 'scaleX', -1 ]
+			)
+
+		1:
+			base: ['serif-vertical', 'none']
+			id: 'topleft'
+			class: 'upperLeftStump'
+			parentAnchors:
+				0:
+					base: contours[1].nodes[1].expandedTo[1]
+					noneAnchor: contours[1].nodes[1].expandedTo[1]
+					opposite: contours[1].nodes[1].expandedTo[0]
+					reversed: true
+			transformOrigin: contours[1].nodes[1].expandedTo[1]
+			transforms: Array(
+				[ 'scaleY', -1 ]
+			)
+		2:
+			base: ['none', 'serif-vertical']
+			id: 'topright'
+			class: 'upperRightStump'
+			parentAnchors:
+				0:
+					base: contours[1].nodes[1].expandedTo[0]
+					noneAnchor: contours[1].nodes[1].expandedTo[0]
+					opposite: contours[1].nodes[1].expandedTo[1]
+					reversed: true
+			transformOrigin: contours[1].nodes[1].expandedTo[0]
+			transforms: Array(
+				[ 'scaleX', -1 ],
+				[ 'scaleY', -1 ]
+			)
